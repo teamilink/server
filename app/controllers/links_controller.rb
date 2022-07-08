@@ -10,7 +10,11 @@ class LinksController < ApplicationController
 
   # GET /links/1
   def show
-    render json: @link
+    if @link
+      render json: @link
+    else
+      render json: {error: "Link not found, wrong id"}, status: :not_found
+    end
   end
 
   # POST /links
@@ -41,7 +45,7 @@ class LinksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_link
-      @link = Link.find(params[:id])
+      @link = Link.find_by_id(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
