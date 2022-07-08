@@ -11,7 +11,7 @@ class LinksController < ApplicationController
   # GET /links/1
   def show
     if @link
-      render json: @link
+      render json: @link, status: :success
     else
       render json: {error: "Link not found, wrong id"}, status: :not_found
     end

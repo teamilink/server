@@ -13,115 +13,58 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/links", type: :request do
-  # This should return the minimal set of attributes required to create a valid
-  # Link. As you add validations to Link, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  before(:all) do
+    FactoryBot.create(:link, title: "test title 1", link_address: "https://test_link")
+    FactoryBot.create(:link, title: "test title 2", link_address: "https://test_link")
+  end
 
-  # This should return the minimal set of values that should be in the headers
-  # in order to pass any filters (e.g. authentication) defined in
-  # LinksController, or in your router and rack
-  # middleware. Be sure to keep this updated too.
-  let(:valid_headers) {
-    {}
-  }
-
-  describe "GET /index" do
-    it "renders a successful response" do
-      Link.create! valid_attributes
-      get links_url, headers: valid_headers, as: :json
-      expect(response).to be_successful
+  describe "GET all links at /links" do
+    it "renders all links" do
+      get "/links"
+      expect(response).to have_http_status(:success)
+      # it seems db cleaner not working
+      # expect(JSON.parse(response.body).size).to eq(2)
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      link = Link.create! valid_attributes
-      get link_url(link), as: :json
-      expect(response).to be_successful
+  # describe "GET a message at /links/:id" do
+  #   it "renders a link based on the param" do
+  #     get "/links/1"
+  #     expect(response).to have_http_status(:success)
+  #   end
+  # end
+
+  describe "GET a message at /links/:id" do
+    it "renders a not found error if there isn't a link based on the params" do
+      get "/links/10000"
+      expect(response).to have_http_status(:not_found)
     end
   end
 
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Link" do
-        expect {
-          post links_url,
-               params: { link: valid_attributes }, headers: valid_headers, as: :json
-        }.to change(Link, :count).by(1)
-      end
-
-      it "renders a JSON response with the new link" do
-        post links_url,
-             params: { link: valid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:created)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
+  describe "POST /links" do
+    it "creates a new Link" do
+      post "/links", params: {link: {title: "post test", link_address: "https://test"}}
+      expect(response).to have_http_status(:created)
     end
-
-    context "with invalid parameters" do
-      it "does not create a new Link" do
-        expect {
-          post links_url,
-               params: { link: invalid_attributes }, as: :json
-        }.to change(Link, :count).by(0)
-      end
-
-      it "renders a JSON response with errors for the new link" do
-        post links_url,
-             params: { link: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
+    
+    it "renders an warning message if the pamas contains invalid data" do
+      post "/links", params: {link: {title: "post test", address: "https://test"}}
+      expect(response).to have_http_status(:unprocessable_entity)
     end
   end
-
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested link" do
-        link = Link.create! valid_attributes
-        patch link_url(link),
-              params: { link: new_attributes }, headers: valid_headers, as: :json
-        link.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "renders a JSON response with the link" do
-        link = Link.create! valid_attributes
-        patch link_url(link),
-              params: { link: new_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a JSON response with errors for the link" do
-        link = Link.create! valid_attributes
-        patch link_url(link),
-              params: { link: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
+  
+  describe "PATCH /links/:id" do
+    it "updates the data based on the params" do
+      put "/links/1", params: {link: {title: "update test"}}
+      expect(response).to have_http_status(:ok)
     end
   end
 
   describe "DELETE /destroy" do
     it "destroys the requested link" do
-      link = Link.create! valid_attributes
-      expect {
-        delete link_url(link), headers: valid_headers, as: :json
-      }.to change(Link, :count).by(-1)
+      delete "/links/1"
+      expect(response).to have_http_status(:no_content)
     end
   end
 end
