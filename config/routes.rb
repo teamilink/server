@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
   resources :links
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  
+  get '/dashboard', to: 'dashboards#index'
+  post '/signup', to: 'users#create'
+  post '/login', to: 'users#login'
+
+  # remove below line if /:username routing is defined in react routes
+  match '/:username', to: 'dashboards#index', via: [:get]
 end
