@@ -1,28 +1,21 @@
 class LinksController < ApplicationController
   before_action :set_link, only: [:show, :update, :destroy]
 
-  # GET /links
-  def index
-    @links = Link.all
-
-    render json: @links
-  end
-
-  # GET /links/1
-  def show
-    if @link
-      render json: @link, status: :success
-    else
-      render json: {error: "Link not found, wrong id"}, status: :not_found
-    end
-  end
+  # # GET /links/1
+  # def show
+  #   if @link
+  #     render json: @link, status: :success
+  #   else
+  #     render json: {error: "Link not found, wrong id"}, status: :not_found
+  #   end
+  # end
 
   # POST /links
   def create
     @link = Link.new(link_params)
 
     if @link.save
-      render json: @link, status: :created, location: @link
+      render json: @link, status: :created
     else
       render json: @link.errors, status: :unprocessable_entity
     end
