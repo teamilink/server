@@ -18,9 +18,3 @@ if Link.count === 0
   Link.create(title: "Twitter", link_address: "https://twitter.com", user_id: 2)
   Link.create(title: "Instagram", link_address: "https://instagram.com", user_id: 3)
 end
-
-# for i in 2..3 do
-#   user = User.where(user_id: i)
-#   user.link_id = i
-#   user.save
-# end
