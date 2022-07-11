@@ -3,7 +3,7 @@ class DashboardsController < ApplicationController
   def index
     @links = []
 
-    if Link.count !== 0
+    if Link.count != 0
       Link.all.map { |link|
         @links << {link_id: link.id, title: link.title, link_address: link.link_address}
       }
