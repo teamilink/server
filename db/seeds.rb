@@ -13,8 +13,8 @@ if User.count === 0
 end
 
 if Link.count === 0
-  Link.create(title: "Buy 1 Get 1 Free", link_address: "https://google.com", user_id: 2)
-  Link.create(title: "Invite your friends", link_address: "https://github.com", user_id: 2)
-  Link.create(title: "Twitter", link_address: "https://twitter.com", user_id: 2)
-  Link.create(title: "Instagram", link_address: "https://instagram.com", user_id: 3)
+  Link.create(title: "Buy 1 Get 1 Free", link_address: "https://google.com")
+  Link.create(title: "Invite your friends", link_address: "https://github.com")
+  Link.create(title: "Twitter", link_address: "https://twitter.com")
+  Link.create(title: "Instagram", link_address: "https://instagram.com")
 end

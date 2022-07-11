@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2022_07_09_040808) do
     t.string "link_address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_links_on_user_id"
   end
 
