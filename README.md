@@ -5,3 +5,7 @@
 - For database, `rails db:drop`, `rails db:create`, `rails db:migrate`, `rails db:seed`
   - or, `rails db:drop db:create db:migrate db:seed` -> sometimes not working
   - `rails db:reset` might cause migration errors when deploying
+
+# Do not merge this branch to the Main
+
+This branch is for testing this API without login.
