@@ -5,9 +5,9 @@ class UsersController < ApplicationController
 
     if @user.save
       auth_token = Knock::AuthToken.new payload: {sub: @user.id}
-      render json: {username: @user.username, jwt: auth_token.token}, status: :created
+      render json: {id: @user.id, username: @user.username, jwt: auth_token.token}, status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {error: "Oops, username and email must be uniq"}, status: 422
     end
   end
 
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     
     if @user && @user.authenticate(params[:password])
       auth_token = Knock::AuthToken.new payload: {sub: @user.id}
-      render json: {username: @user.username, jwt: auth_token.token}, status: 200
+      render json: {id: @user.id, username: @user.username, jwt: auth_token.token}, status: 200
     else
       render json: {error: "Invalid email or password"}, status: 401
     end
