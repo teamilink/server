@@ -8,14 +8,19 @@ class AppearancesController < ApplicationController
   #   render json: @appearances
   # end
 
-  # GET /appearances/1
+  # GET /appearances/1  
   def show
-    render json: @appearance
+    # @appearance = Appearance.last.to_json(include: [:picture_url])
+    @appearance = Appearance.last
+    render json: AppearanceSerializer.new(@appearance).serializable_hash[:data][:attributes]
   end
 
   # POST /appearances
   def create
     @appearance = Appearance.new(appearance_params)
+
+    pp "****** @appearance created *********"
+    pp @appearance
 
     if @appearance.save
       render json: @appearance, status: :created
@@ -39,6 +44,7 @@ class AppearancesController < ApplicationController
   end
 
   private
+    
     # Use callbacks to share common setup or constraints between actions.
     def set_appearance
       @appearance = Appearance.find(params[:id])
