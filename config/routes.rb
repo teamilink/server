@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :appearances
   resources :links
   
   get '/dashboard', to: 'dashboards#index'
