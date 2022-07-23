@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.routes.default_url_options = {
-  host: 'http://localhost:4000'
+  host: "https://ilinkprofileimage.s3.ap-southeast-2.amazonaws.com/"
 }
 
 Rails.application.configure do
