@@ -2,16 +2,16 @@ class AppearancesController < ApplicationController
   before_action :set_appearance, only: [:show, :update, :destroy]
 
   # GET /appearances/1  
-  def show
-    # @appearance = Appearance.last.to_json(include: [:picture_url])
-    @appearance = Appearance.where(user_id: params[:user_id])
+  # def show
+  #   # @appearance = Appearance.last.to_json(include: [:picture_url])
+  #   @appearance = Appearance.where(user_id: params[:user_id])
     
-    pp "**** show ****"
-    pp url_for(@appearance.picture)
-    pp @appearance.picture
+  #   pp "**** show ****"
+  #   pp url_for(@appearance.picture)
+  #   pp @appearance.picture
         
-    render json: AppearanceSerializer.new(@appearance).serializable_hash[:data][:attributes]
-  end
+  #   render json: AppearanceSerializer.new(@appearance).serializable_hash[:data][:attributes]
+  # end
   
   # POST /appearances
   def create

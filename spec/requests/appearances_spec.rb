@@ -32,22 +32,6 @@ RSpec.describe "/appearances", type: :request do
     {}
   }
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      Appearance.create! valid_attributes
-      get appearances_url, headers: valid_headers, as: :json
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /show" do
-    it "renders a successful response" do
-      appearance = Appearance.create! valid_attributes
-      get appearance_url(appearance), as: :json
-      expect(response).to be_successful
-    end
-  end
-
   describe "POST /create" do
     context "with valid parameters" do
       it "creates a new Appearance" do
