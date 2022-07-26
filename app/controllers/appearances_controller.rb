@@ -1,16 +1,7 @@
 class AppearancesController < ApplicationController
   before_action :set_appearance, only: [:show, :update, :destroy]
-
-  # GET /appearances
-  # def latest
-  #   # @appearance = Appearance.last.to_json(include: [:picture_url])
-  #   pp "************* latest method triggered *************"
-  #   @appearance = Appearance.where(user_id: params[:user_id]).last    
-        
-  #   render json: AppearanceSerializer.new(@appearance).serializable_hash[:data][:attributes]
-  # end
   
-  # POST /appearances
+  # POST /appearance
   def create
     @appearance = Appearance.new(appearance_params)
     
@@ -27,7 +18,7 @@ class AppearancesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /appearances/1
+  # PATCH/PUT /appearance/1
   def update
     pp "******* update ********"
     pp appearance_params
@@ -38,7 +29,7 @@ class AppearancesController < ApplicationController
     end
   end
 
-  # DELETE /appearances/1
+  # DELETE /appearance/1
   def destroy
     @appearance.destroy
   end
