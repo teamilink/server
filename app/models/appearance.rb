@@ -4,6 +4,8 @@ class Appearance < ApplicationRecord
 
   validates :profile_title, presence: true
 
+  before_save :picture_url
+  
   def picture_url
     # Rails.application.routes.url_helpers.url_for(picture) if picture.attached?
     picture.blob.url if picture.attached?
