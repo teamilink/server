@@ -7,7 +7,7 @@ class UsersController < ApplicationController
       auth_token = Knock::AuthToken.new payload: {sub: @user.id}
       render json: {id: @user.id, username: @user.username, jwt: auth_token.token}, status: :created
     else
-      render json: {error: "Oops, username and email must be uniq"}
+      render json: {error: "Oops, your username and email must be unique and the username must not contain any space"}
     end
   end
 
