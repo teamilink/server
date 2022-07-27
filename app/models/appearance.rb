@@ -16,4 +16,9 @@ class Appearance < ApplicationRecord
     
   end
 
+  def self.find_by_user_id(username)
+    user_id = User.find_by_username(username).id
+    return self.where(user_id: user_id)
+  end
+
 end
