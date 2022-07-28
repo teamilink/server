@@ -2,7 +2,8 @@ class Appearance < ApplicationRecord
   belongs_to :user
   has_one_attached :picture, service: :amazon
 
-  validates :profile_title, presence: true
+  validates :profile_title, length: {maximum: 30}, presence: true
+  validates :bio, length: {maximum: 80}, presence: true
 
   before_save :picture_url
   
