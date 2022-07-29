@@ -20,26 +20,35 @@ class DashboardsController < ApplicationController
       
       linkList = Link.find_by_user(username)
 
+      # returned user who has links
       if linkList.length > 0
         linkList.map { |link|
           @dashboard[:links] << {id: link.id, title: link.title, link_address: link.link_address, user_id: link.user_id}
         }
+
+      # new user || user who doesn't have any links
+      else
+        pp "*** this user doesn't have any links ****"
+        
+        @dashboard[:links] = nil
+        # @dashboard[:links] = {message: "No data available"}
       end
 
-      # if current_user
-        # if Link.where(user_id: current_user.id).length > 0
-        #   Link.where(user_id: current_user.id).map { |link|
-        #     @dashboard[:links] << {id: link.id, title: link.title, link_address: link.link_address, user_id: link.user_id}
-        #   }
-        # end
-
+      # returned user who has appearnace
+      if Appearance.find_by_user_id(username).last
         @dashboard[:appearance] = Appearance.find_by_user_id(username).last        
         @dashboard[:appearance] = AppearanceSerializer.new(@dashboard[:appearance]).serializable_hash[:data][:attributes]
-
-        render json: @dashboard
-        
+      
+      # new user || user who doesn't have any appearnace setting
       else
-        render json: {error: "Username not found"}
+        pp "*** this user doesn't have any appearance ****"
+        @dashboard[:appearance] = nil
+        # @dashboard[:appearance] = {message: "No data available"}
+      end
+
+      render json: @dashboard  
+    else
+      render json: {error: "Username not found"}
     end
   end
   
