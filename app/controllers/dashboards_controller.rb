@@ -30,7 +30,7 @@ class DashboardsController < ApplicationController
       else
         pp "*** this user doesn't have any links ****"
         
-        @dashboard[:links] = nil
+        @dashboard[:links] = []
         # @dashboard[:links] = {message: "No data available"}
       end
 
@@ -42,7 +42,7 @@ class DashboardsController < ApplicationController
       # new user || user who doesn't have any appearnace setting
       else
         pp "*** this user doesn't have any appearance ****"
-        @dashboard[:appearance] = nil
+        @dashboard[:appearance] = {}
         # @dashboard[:appearance] = {message: "No data available"}
       end
 
