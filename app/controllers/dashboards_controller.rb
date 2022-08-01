@@ -12,11 +12,26 @@ class DashboardsController < ApplicationController
     # if a user is logged in and want to check other's link ? 
     if current_user || params[:username]
       
-      username = if params[:username]
-                    params[:username]
-                  elsif current_user.username
-                    current_user.username
-                  end
+      # validate params[:username] and assign the value to the username variable
+      if params[:username] && User.find_by_username(params[:username])
+        username = User.find_by_username(params[:username]).username
+      elsif current_user.username != params[:username]
+        pp "################ invalid username ####################"
+        return render json: {error: "The page you’re looking for doesn’t exist."}
+        
+      elsif current_user.username
+        username = current_user.username
+      else
+        pp "################ invalid username ####################"
+        return render json: {error: "The page you’re looking for doesn’t exist."}
+        
+      end
+
+      # username = if params[:username]
+      #               User.find_by_username(params[:username]).username
+      #             elsif current_user.username
+      #               current_user.username
+      #             end
       
       linkList = Link.find_by_user(username)
 
@@ -48,20 +63,11 @@ class DashboardsController < ApplicationController
 
       render json: @dashboard  
     else
-      render json: {error: "Username not found"}
+      render json: {error: "The page you’re looking for doesn’t exist."}
     end
   end
   
-  
-  def show
-    pp "*************** dashbaord - SHOW ***************"
-    if params
-      pp params
-    end
-  end
-
   private
-
 
   def dashboard_params
     params.require(:dashbaord).permit(:username)
