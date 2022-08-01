@@ -7,8 +7,8 @@ class AppearancesController < ApplicationController
     
     pp "****** @appearance created *********"
     # pp @appearance.picture.blob
-    pp appearance_params
-    pp @appearance
+    # pp appearance_params
+    # pp @appearance
     
     if @appearance.save
       # render json: @appearance, status: :created
@@ -45,6 +45,6 @@ class AppearancesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def appearance_params
-      params.require(:appearance).permit(:user_id, :profile_title, :bio, :bg_color, :bg_image_url, :picture, :id)
+      params.require(:appearance).permit(:user_id, :profile_title, :bio, :bg_color, :bg_image_url, :picture, :picture_url, :id).select {|x, v| v.present?}
     end
 end

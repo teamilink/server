@@ -5,5 +5,6 @@ FactoryBot.define do
     bio { "MyText" }
     bg_color { "MyString" }
     bg_image_url { "MyString" }
+    picture_url { "MyString" }
   end
 end
