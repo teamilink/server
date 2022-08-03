@@ -6,12 +6,8 @@ class AppearancesController < ApplicationController
     @appearance = Appearance.new(appearance_params)
     
     pp "****** @appearance created *********"
-    # pp @appearance.picture.blob
-    # pp appearance_params
-    # pp @appearance
     
     if @appearance.save
-      # render json: @appearance, status: :created
       render json: AppearanceSerializer.new(@appearance).serializable_hash[:data][:attributes], status: :created
     else
       render json: @appearance.errors.full_messages, status: :unprocessable_entity
@@ -20,8 +16,6 @@ class AppearancesController < ApplicationController
 
   # PATCH/PUT /appearance/1
   def update
-    pp "******* update ********"
-    pp appearance_params
     if @appearance.update(appearance_params)
       render json: @appearance
     else
@@ -39,8 +33,6 @@ class AppearancesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_appearance
       @appearance = Appearance.find(params[:id])
-      pp "***** set_appearnace *******"
-      pp @appearance
     end
 
     # Only allow a list of trusted parameters through.
