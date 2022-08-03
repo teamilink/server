@@ -6,5 +6,6 @@ FactoryBot.define do
     bg_color { "MyString" }
     bg_image_url { "MyString" }
     picture_url { "MyString" }
+    picture { nil }
   end
 end

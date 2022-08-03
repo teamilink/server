@@ -5,7 +5,6 @@ RSpec.describe "Dashboards", type: :request do
   describe "GET /dashboard" do
     before(:each) do
       @test_user = FactoryBot.create(:user, username: "coder_academy", email: "coder@test.com", password: "test123", password_confirmation: "test123")
-      
     end
 
     it "returns the data created by the loggedInUser" do
@@ -14,7 +13,6 @@ RSpec.describe "Dashboards", type: :request do
     end
 
     it "returns the data of the user when the username is entered" do
-    
       get '/dashboard', params: {username: "coder_academy"}
       expect(response.body).to include("links")
     end
