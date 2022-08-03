@@ -14,6 +14,16 @@ RSpec.describe "Users", type: :request do
       post '/signup', params: {username: "backend_tester", email: "coder@test.com", password: "test123", password_confirmation: "test123"}
       expect(response.body).to include("Oops, your username and email must be unique and the username must not contain any space")
     end
+
+    it "returns error if the username has invalid format" do
+      post '/signup', params: {username: "BackendTester", email: "coder@test.com", password: "test123", password_confirmation: "test123"}
+      expect(response.body).to include("Oops, your username and email must be unique and the username must not contain any space")
+    end
+
+    it "returns error if the email has invalid format" do
+      post '/signup', params: {username: "backend_tester", email: "abcd", password: "test123", password_confirmation: "test123"}
+      expect(response.body).to include("Oops, your username and email must be unique and the username must not contain any space")
+    end
   end
 
   describe "POST /login" do
