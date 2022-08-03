@@ -2,19 +2,14 @@ class Appearance < ApplicationRecord
   belongs_to :user
   has_one_attached :picture, service: :amazon
 
+  # input data validation for those who don't use frontend input fields
   validates :profile_title, length: {maximum: 30}, presence: true
   validates :bio, length: {maximum: 80}, presence: true
 
   before_save :uploaded_picture_url
   
   def uploaded_picture_url
-    # Rails.application.routes.url_helpers.url_for(picture) if picture.attached?
     picture.blob.url if picture.attached?
-    # if picture.attached?
-    #   blob = ActiveStorage::Blob.last
-    #   blob.url(virtual_host: true) 
-    # end    
-    
   end
 
   def self.find_by_user_id(username)

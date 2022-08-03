@@ -71,7 +71,6 @@ class DashboardsController < ApplicationController
 
     # new user || user who doesn't have any links
     else
-      pp "*** this user doesn't have any links ****"
       @dashboard[:links] = []
     end
 
@@ -82,7 +81,6 @@ class DashboardsController < ApplicationController
     
     # new user || user who doesn't have any appearnace setting
     else
-      pp "*** this user doesn't have any appearance ****"
       @dashboard[:appearance] = {}
     end
 
