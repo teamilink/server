@@ -6,8 +6,6 @@ class DashboardsController < ApplicationController
       links: [],
       appearance: {}
     }
-
-    pp "********** dashboard - index **********"
     
     # 1. current_user | signing in
     # 2. params[:username] | visiting a profile
@@ -19,44 +17,33 @@ class DashboardsController < ApplicationController
     # 4. current_user -> same params[:username] | a logged in user visit their profile
     
     if current_user && params[:username]
-      pp "################ current & params exist ####################"
-      pp params[:username]
       
       # 3 
       if current_user.username != params[:username]
-        pp "################ current != params exist 3 ####################"
         # 3-1
         if params[:username] && User.find_by_username(params[:username])
-          pp "################ valid username 3-1 ####################"
           username = User.find_by_username(params[:username]).username
         # 3-2
         else
-          pp "################ invalid username 3-2 ####################"
           return render json: {error: "The page you’re looking for doesn’t exist."}
         end
         # 4
       else
-        pp "################ current_user's username 4 ####################"
         username = current_user.username
       end
       # 2
     elsif params[:username]
-      pp "################ params exist 2 ####################"
       # 2-1
       if params[:username] && User.find_by_username(params[:username])
-        pp "################ valid username 2-1  ####################"
         username = User.find_by_username(params[:username]).username
       # 2-2
       else
-        pp "################ invalid username 2-2 ####################"
         return render json: {error: "The page you’re looking for doesn’t exist."}
       end
     # 1
     elsif current_user
-      pp "################ current_user's username 1 ####################"
       username = current_user.username
     else
-      pp "################ invalid username - else ####################"
       return render json: {error: "The page you’re looking for doesn’t exist."}
     end
     
