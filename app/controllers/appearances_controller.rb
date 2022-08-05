@@ -5,8 +5,6 @@ class AppearancesController < ApplicationController
   def create
     @appearance = Appearance.new(appearance_params)
     
-    pp "****** @appearance created *********"
-    
     if @appearance.save
       render json: AppearanceSerializer.new(@appearance).serializable_hash[:data][:attributes], status: :created
     else

@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
-    pp user_params
 
     if @user.save
       auth_token = Knock::AuthToken.new payload: {sub: @user.id}
@@ -16,8 +15,6 @@ class UsersController < ApplicationController
     
     if @user && @user.authenticate(params[:password])
       auth_token = Knock::AuthToken.new payload: {sub: @user.id}
-      pp "******* login ******"
-      pp @user
       render json: {id: @user.id, username: @user.username, jwt: auth_token.token}, status: 200
     else
       render json: {error: "Invalid email or password"}

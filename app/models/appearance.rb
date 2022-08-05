@@ -6,9 +6,9 @@ class Appearance < ApplicationRecord
   validates :profile_title, length: {maximum: 30}, presence: true
   validates :bio, length: {maximum: 80}, presence: true
 
-  before_save :uploaded_picture_url
+  before_save :picture_url
   
-  def uploaded_picture_url
+  def picture_url
     picture.blob.url if picture.attached?
   end
 
