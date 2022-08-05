@@ -35,6 +35,6 @@ class AppearancesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def appearance_params
-      params.require(:appearance).permit(:user_id, :profile_title, :bio, :bg_color, :bg_image_url, :picture, :picture_url, :id).select {|x, v| v.present?}
+      params.require(:appearance).permit(:user_id, :profile_title, :bio, :bg_color, :bg_image_url, :picture, :picture_url, :img_timestamp, :pic_timestamp, :id).select {|x, v| v.present?}
     end
 end
