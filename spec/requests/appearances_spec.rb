@@ -30,14 +30,7 @@ RSpec.describe "/dashboard/appearance", type: :request do
     end
 
     it "updates only edited fields" do
-      put "/dashboard/appearance/#{@test_appearance.id}", params: {appearance: {profile_title: "Happy Coder", user_id: @test_user.id, picture_url: "https://abcd.com"}}
-      expect(response.body).to include("Happy Coder")
-      expect(response.body).to include("Nice to meet you!")
-      expect(response.body).to include("https://abcd.com")
-    end
-
-    it "updates only edited fields" do
-      put "/dashboard/appearance/#{@test_appearance.id}", params: {appearance: {profile_title: "Happy Coder", user_id: @test_user.id, picture_url: "https://abcd.com"}}
+      put "/dashboard/appearance/#{@test_appearance.id}", params: {appearance: {profile_title: "Happy Coder", user_id: @test_user.id, bg_image_url: "https://abcd.com"}}
       expect(response.body).to include("Happy Coder")
       expect(response.body).to include("Nice to meet you!")
       expect(response.body).to include("https://abcd.com")
