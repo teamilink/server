@@ -84,3 +84,4 @@ production:
   database: ilink_server_production
   username: ilink_server
   password: <%= ENV['ILINK_SERVER_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
